@@ -1,0 +1,121 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <ImageView android:id="@+id/detail_star"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:src="@drawable/star_false"
+        android:background="#00ffffff"
+        android:layout_alignBottom="@+id/detail_check"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/detail_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:maxLines="2"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/detail_star"
+        android:layout_toEndOf="@+id/detail_star" />
+
+    <TextView
+        android:id="@+id/detail_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/detail_name"
+        android:layout_below="@+id/detail_name"
+        android:layout_toLeftOf="@+id/detail_check"
+        android:layout_marginTop="2dp"
+        android:textColor="#000"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="This is a good Post, I hope it will have 2 lines. Please give me 2 lines"
+        android:textIsSelectable="false"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/detail_descr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/detail_date"
+        android:layout_below="@+id/detail_date"
+        android:layout_toLeftOf="@+id/detail_check"
+        android:layout_marginTop="5dp"
+        android:textColor="#000"
+        android:ellipsize="end"
+        android:text="Beschreibung"
+        android:textIsSelectable="false"
+        android:textSize="13sp"/>
+
+    <ImageView android:id="@+id/detail_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/check_false"
+        android:background="#00ffffff"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/btn_edit_detail"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Edit Fav / Done"
+        android:textSize="20sp"
+        android:layout_above="@+id/btn_edit_descr"
+        android:layout_alignLeft="@+id/detail_descr"
+        android:layout_alignStart="@+id/detail_descr" />
+
+    <Button
+        android:id="@+id/btn_edit_descr"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Edit Description"
+        android:textSize="20sp"
+        android:layout_above="@+id/btn_edit_date"
+        android:layout_alignLeft="@+id/detail_descr"
+        android:layout_alignStart="@+id/detail_descr" />
+
+    <Button
+        android:id="@+id/btn_edit_date"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Edit Date"
+        android:textSize="20sp"
+        android:layout_above="@+id/btn_edit_name"
+        android:layout_alignLeft="@+id/detail_descr"
+        android:layout_alignStart="@+id/detail_descr" />
+
+    <Button
+        android:id="@+id/btn_edit_name"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Edit Name"
+        android:textSize="20sp"
+        android:layout_above="@+id/btn_delete_detail"
+        android:layout_alignLeft="@+id/detail_descr"
+        android:layout_alignStart="@+id/detail_descr" />
+
+    <Button
+        android:id="@+id/btn_delete_detail"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="40dp"
+        android:layout_alignParentBottom="true"
+        android:text="Delete"
+        android:textSize="20sp"/>
+
+
+
+
+
+
+
+</RelativeLayout>

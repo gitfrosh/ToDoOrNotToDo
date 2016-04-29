@@ -1,0 +1,81 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <CheckBox android:id="@+id/star_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/star_false"
+        android:background="#00ffffff"
+        android:text="PrioItem?"
+        />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Erledigt?"
+        android:id="@+id/done_edit" />
+
+<!--
+    <EditText
+        android:id="@+id/edit_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:hint="Name"
+        android:singleLine="true" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/edit_descr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/add_name"
+        android:hint="Beschreibung"
+        android:singleLine="true" />
+
+    <EditText
+        android:id="@+id/edit_fav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/add_descr"
+        android:hint="Fav?"
+        android:singleLine="true" />
+
+    <EditText
+        android:id="@+id/edit_done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/add_fav"
+        android:hint="Done?"
+        android:singleLine="true" />
+
+    <EditText
+        android:id="@+id/edit_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/add_done"
+        android:hint="Date"
+        android:singleLine="true" />
+-->
+
+    <Button
+        android:id="@+id/buttonEDIT"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="40dp"
+        android:text="Send" />
+
+
+
+</LinearLayout>

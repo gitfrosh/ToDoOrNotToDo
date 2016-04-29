@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <EditText
+        android:id="@+id/edit_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:hint="Name"
+        android:singleLine="true" >
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/buttonEDIT"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="40dp"
+        android:text="Send" />
+
+
+</LinearLayout>

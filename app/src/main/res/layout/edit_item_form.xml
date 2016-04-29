@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <CheckBox android:id="@+id/star_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/star_false"
+        android:background="#00ffffff"
+        android:text="PrioItem?"
+        />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Erledigt?"
+        android:id="@+id/done_edit" />
+
+    <Button
+        android:id="@+id/buttonEDIT"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="40dp"
+        android:text="Send" />
+
+
+</LinearLayout>
