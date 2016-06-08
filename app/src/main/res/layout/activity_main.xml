@@ -11,7 +11,8 @@
     <TextView android:text="@string/hello_world"
 
         android:textColor="#000"
-        android:textSize="30sp"
+        android:textSize="20sp"
+        android:layout_marginTop="2dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -33,7 +34,7 @@
         android:layout_marginLeft="40dp"
         android:layout_alignParentBottom="true"
         android:text="Add ToDo"
-        android:textSize="20sp"/>
+        android:textSize="10sp"/>
 
     <Button
         android:id="@+id/btn_refresh"
@@ -42,6 +43,6 @@
         android:layout_marginLeft="40dp"
         android:layout_alignParentBottom="true"
         android:text="Refresh"
-        android:textSize="20sp"/>
+        android:textSize="10sp"/>
 
 </LinearLayout>

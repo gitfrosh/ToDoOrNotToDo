@@ -77,7 +77,6 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
-
         //zunächst mal Connection zum Server checken und Warnhinweis einblenden, falls nicht--------/
 
         try {
@@ -95,6 +94,9 @@ public class MainActivity extends Activity {
 
         //-----------------------------------------------------------------------------------------/
 
+        //hier wird das Layout aufgebaut: Liste, Buttons
+
+        Log.d(LOGGER, "Load View and Layout..");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -105,10 +107,8 @@ public class MainActivity extends Activity {
         btnrefresh = (Button) findViewById(R.id.btn_refresh);
         sqlHandler = new SqlHandler(this);
 
-
+        //Wichtig! Liste (Adapter) wird geladen
         showList();
-
-        Log.d(LOGGER, "Load Buttons..");
 
         //------------------------------Button ClickListener----------------------------------------
         btnrefresh.setOnClickListener(new OnClickListener() {
@@ -294,7 +294,7 @@ public class MainActivity extends Activity {
                 }
             }
 
-            //für alle SQLite-Item..
+            //für alle SQLite-Items..
             for (int i = 0; i < items_id.size(); ++i) {
 
                 String inta = items_id.get(i);

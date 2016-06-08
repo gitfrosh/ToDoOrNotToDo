@@ -28,7 +28,7 @@
         android:text="TextView"
         android:maxLines="1"
         android:textColor="#000"
-        android:textSize="30sp"/>
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/row_date"
@@ -43,7 +43,7 @@
         android:maxLines="2"
         android:text="This is a good Post, I hope it will have 2 lines. Please give me 2 lines"
         android:textIsSelectable="false"
-        android:textSize="16sp"/>
+        android:textSize="12sp"/>
 
     <ImageView android:id="@+id/check"
         android:layout_width="wrap_content"
