@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    >
+    android:background="#EBF2FA">
 
     <ImageView android:id="@+id/detail_star"
         android:layout_width="wrap_content"
@@ -66,51 +66,60 @@
     <Button
         android:id="@+id/btn_edit_detail"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="35dp"
         android:text="Edit Fav / Done"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:layout_above="@+id/btn_edit_descr"
-        android:layout_alignLeft="@+id/detail_descr"
-        android:layout_alignStart="@+id/detail_descr" />
+        android:background="#427AA1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/btn_edit_descr"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="35dp"
         android:text="Edit Description"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:layout_above="@+id/btn_edit_date"
-        android:layout_alignLeft="@+id/detail_descr"
-        android:layout_alignStart="@+id/detail_descr" />
+        android:background="#427AA1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/btn_edit_date"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="35dp"
         android:text="Edit Date"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:layout_above="@+id/btn_edit_name"
-        android:layout_alignLeft="@+id/detail_descr"
-        android:layout_alignStart="@+id/detail_descr" />
+        android:background="#427AA1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/btn_edit_name"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="35dp"
         android:text="Edit Name"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:layout_above="@+id/btn_delete_detail"
-        android:layout_alignLeft="@+id/detail_descr"
-        android:layout_alignStart="@+id/detail_descr" />
+        android:background="#427AA1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/btn_delete_detail"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="40dp"
+        android:layout_height="35dp"
         android:layout_alignParentBottom="true"
         android:text="Delete"
-        android:textSize="20sp"/>
+        android:textSize="15sp"
+        android:background="#427AA1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:clickable="false"
+        android:focusable="true"
+        android:lines="@integer/abc_config_activityDefaultDur" />
 
 
 

@@ -25,13 +25,27 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/add_name"
-        android:hint="Beschreibung"
+        android:hint="Description"
         android:singleLine="true" />
+
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Is this a priority item?"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/checkFav" />
 
 
     <DatePicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:scaleX="0.80"
+        android:scaleY="0.80"
+        android:layout_marginLeft="-30dp"
+        android:layout_marginTop="-30dp"
+        android:layout_marginRight="-50dp"
+        android:layout_marginBottom="-30dp"
         android:background="#FFFFFF"
         android:id="@+id/datePicker" />
 
@@ -39,16 +53,15 @@
     <TimePicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:scaleX="0.80"
+        android:scaleY="0.80"
+        android:layout_marginLeft="-35dp"
+        android:layout_marginTop="-30dp"
+        android:layout_marginRight="-50dp"
+        android:layout_marginBottom="-30dp"
         android:id="@+id/timePicker" />
 
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:text="PrioItem?"
-        android:layout_marginLeft="40dp"
-        android:id="@+id/checkFav" />
 
 </LinearLayout>
     </ScrollView>

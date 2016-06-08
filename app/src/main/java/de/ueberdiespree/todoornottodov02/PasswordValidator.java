@@ -11,6 +11,8 @@ import java.util.regex.Pattern;
  */
 public class PasswordValidator {
 
+    // stellt sicher dass das Passwort numerisch und 6 Ziffern lang ist
+
     private Pattern pattern;
     private Matcher matcher;
 

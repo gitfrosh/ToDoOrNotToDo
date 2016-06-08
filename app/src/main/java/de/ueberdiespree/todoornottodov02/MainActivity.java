@@ -1,16 +1,14 @@
 package de.ueberdiespree.todoornottodov02;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -24,43 +22,31 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.app.DatePickerDialog;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpDelete;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     public static final String LOGGER = "ULRIKE";
     public SqlHandler sqlHandler;
     public ListView lvCustomList;
-    public Button btnsubmit, btnrefresh;
+    public Button btnsubmit;
     public ArrayList<Item> list = new ArrayList<Item>();
     public ArrayList<String> items_id = new ArrayList<String>();
     public ArrayList<String> array_server_ids = new ArrayList<String>();
@@ -70,15 +56,13 @@ public class MainActivity extends Activity {
     public String add_name_str, add_descr_str, add_done_str, add_fav_str;
     Cursor c1;
     int rowPosition;
-    String ip = "http://10.0.3.2/";
-    BufferedReader in = null;
+    private Menu optionsMenu;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         //zunächst mal Connection zum Server checken und Warnhinweis einblenden, falls nicht--------/
-
         try {
             if (isOnline()) {
                 Log.d(LOGGER, "Connection fine.");
@@ -100,108 +84,16 @@ public class MainActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         lvCustomList = (ListView) findViewById(R.id.lv_custom_list);
 
-        btnsubmit = (Button) findViewById(R.id.btn_submit);
-        btnrefresh = (Button) findViewById(R.id.btn_refresh);
+
         sqlHandler = new SqlHandler(this);
 
         //Wichtig! Liste (Adapter) wird geladen
         showList();
-
-        //------------------------------Button ClickListener----------------------------------------
-        btnrefresh.setOnClickListener(new OnClickListener() {
-
-
-            @Override
-            public void onClick(View v) {
-                showList();
-            }
-        });
-
-        //------------------------------Button ClickListener----------------------------------------
-        btnsubmit.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-                final Context context = view.getContext();
-
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                final View formElementsView = inflater.inflate(R.layout.todo_add_form, null, false);
-
-                final DatePicker dpResult = (DatePicker) formElementsView.findViewById(R.id.datePicker);
-                final TimePicker tpResult = (TimePicker) formElementsView.findViewById(R.id.timePicker);
-                final EditText add_name = (EditText) formElementsView.findViewById(R.id.add_name);
-                final EditText add_descr = (EditText) formElementsView.findViewById(R.id.add_descr);
-
-                final CheckBox add_fav = (CheckBox) formElementsView.findViewById(R.id.checkFav);
-
-                new AlertDialog.Builder(context)
-                        .setView(formElementsView)
-                        .setTitle("Add Item")
-                        .setPositiveButton("Add",
-                                //Dialog, id -> ist eine Abkürzung!, löst einen neuen Listener für einen
-                                //Dialog aus, beim Klick darauf werden die Texteingaben ausgewertet und in
-                                //Angaben in das neue Objekt geschrieben
-
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-
-                                        add_name_str = add_name.getText().toString();
-                                        add_descr_str = add_descr.getText().toString();
-                                        add_done_str = "false"; //wird ein Item angelegt, ist
-                                        //es immer erst unerledigt
-
-
-                                        add_fav_str = "";
-                                        if (add_fav.isChecked()) {
-                                            add_fav_str = "true";
-                                        } else {
-                                            add_fav_str = "false";
-                                        }
-
-
-                                        Calendar cal = new GregorianCalendar(dpResult.getYear(),
-                                                dpResult.getMonth(),
-                                                dpResult.getDayOfMonth(),
-                                                tpResult.getCurrentHour(),
-                                                tpResult.getCurrentMinute());
-
-
-                                        long dateInLong = cal.getTimeInMillis();
-                                        //Kalenderdaten in long umwandeln
-
-                                        int zzahl = new Random().nextInt(10000) + 1;
-                                        //Zufalls-ID erstellen
-
-                                        //Item aus "Add"-Dialog in SQLite schreiben
-                                        SQLiteCRUD insertItem = new SQLiteCRUD(sqlHandler, "");
-                                        insertItem.insertItemIntoSQLite(zzahl, add_name_str, add_fav_str,
-                                                add_done_str, dateInLong, add_descr_str);
-
-
-                                        //erstelle ServerItem, zur Vorbereitung auf HttpTask
-                                        serverItem = new Item(new SQLiteCRUD(sqlHandler, "").findLatestItem(),
-                                                add_name_str, add_descr_str, add_fav_str, add_done_str,
-                                                dateInLong);
-
-                                        ////////////////////////////////////////////////////////////
-
-                                        new HttpAsyncTask(serverItem,
-                                                "http://10.0.3.2:8080/api/todos", "POST").execute();
-
-                                        showList();
-
-                                        dialog.cancel();
-
-                                    }
-
-                                }).show();
-
-            }
-        });
 
     }
 
@@ -334,12 +226,7 @@ public class MainActivity extends Activity {
                 //        + jObj.getInt("id") + "','" + jObj.getString("name") + "','" + jObj.getString("favourite") + "','" + jObj.getString("done") + "','" + jObj.getLong("expiry") + "','" + add_descr_str + "')";
                 //sqlHandler.executeQuery(query);
                 //Log.d(LOGGER, "Query= " + query);
-
-
-
-
             }
-
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block
@@ -386,9 +273,6 @@ public class MainActivity extends Activity {
                 startActivity(intent);
             }
         });
-
-
-
 
     }
 
@@ -534,34 +418,103 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        this.optionsMenu = menu;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
+
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
-            case R.id.action_one:
+            case R.id.menuRefresh:
+
+                Log.d(LOGGER, "Refresh geklickt");
+                showList();
+                return true;
+
+            case R.id.menuAdd:
+
+                Log.d(LOGGER, "Add geklickt");
+
+                final View formElementsView = getLayoutInflater().inflate(R.layout.todo_add_form, null);
+
+                final DatePicker dpResult = (DatePicker) formElementsView.findViewById(R.id.datePicker);
+                final TimePicker tpResult = (TimePicker) formElementsView.findViewById(R.id.timePicker);
+                final EditText add_name = (EditText) formElementsView.findViewById(R.id.add_name);
+                final EditText add_descr = (EditText) formElementsView.findViewById(R.id.add_descr);
+
+                final CheckBox add_fav = (CheckBox) formElementsView.findViewById(R.id.checkFav);
+
+                new AlertDialog.Builder(this)
+                        .setView(formElementsView)
+                        .setTitle("Add Item")
+                        .setPositiveButton("Add",
+                                //Dialog, id -> ist eine Abkürzung!, löst einen neuen Listener für einen
+                                //Dialog aus, beim Klick darauf werden die Texteingaben ausgewertet und in
+                                //Angaben in das neue Objekt geschrieben
+
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                        add_name_str = add_name.getText().toString();
+                                        add_descr_str = add_descr.getText().toString();
+                                        add_done_str = "false"; //wird ein Item angelegt, ist
+                                        //es immer erst unerledigt
 
 
-                Collections.sort(list, new Comparator<Item>() {
-                    @Override
-                    public int compare(Item lhs, Item rhs) {
-                        return lhs.getName().compareTo(rhs.getName());
-                    }
-                });
+                                        add_fav_str = "";
+                                        if (add_fav.isChecked()) {
+                                            add_fav_str = "true";
+                                        } else {
+                                            add_fav_str = "false";
+                                        }
 
 
-                Log.d(LOGGER, "" + list);
-                break;
+                                        Calendar cal = new GregorianCalendar(dpResult.getYear(),
+                                                dpResult.getMonth(),
+                                                dpResult.getDayOfMonth(),
+                                                tpResult.getCurrentHour(),
+                                                tpResult.getCurrentMinute());
 
-            case R.id.action_two:
-                Log.d(LOGGER, "" + list);
-                break;
+
+                                        long dateInLong = cal.getTimeInMillis();
+                                        //Kalenderdaten in long umwandeln
+
+                                        int zzahl = new Random().nextInt(10000) + 1;
+                                        //Zufalls-ID erstellen
+
+                                        //Item aus "Add"-Dialog in SQLite schreiben
+                                        SQLiteCRUD insertItem = new SQLiteCRUD(sqlHandler, "");
+                                        insertItem.insertItemIntoSQLite(zzahl, add_name_str, add_fav_str,
+                                                add_done_str, dateInLong, add_descr_str);
+
+
+                                        //erstelle ServerItem, zur Vorbereitung auf HttpTask
+                                        serverItem = new Item(new SQLiteCRUD(sqlHandler, "").findLatestItem(),
+                                                add_name_str, add_descr_str, add_fav_str, add_done_str,
+                                                dateInLong);
+
+                                        ////////////////////////////////////////////////////////////
+
+                                        new HttpAsyncTask(serverItem,
+                                                "http://10.0.3.2:8080/api/todos", "POST").execute();
+
+                                        showList();
+
+                                        dialog.cancel();
+
+                                    }
+
+                                }).show();
+                return (super.onOptionsItemSelected(item));
         }
-        return true;
 
+                return true;
     }
+
 
 
     public boolean checkArray(ArrayList<String> items_id, String b) {
@@ -576,9 +529,4 @@ public class MainActivity extends Activity {
 
     }
 
-    public void synchronize(String result) {
-
-
-
-    }
 }
