@@ -46,30 +46,6 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
         this.identifier = identifier;
     }
 
-
-    @Override
-    protected String doInBackground(String... params) {
-
-        //je nachdem welcher Identifier angegeben wird, wird ein anderer Http-Task ausgeführt
-
-        switch(identifier){
-            case "POST":
-                return returnStatement = POST(url, serverItem);
-            case "PUT":
-                return returnStatement = PUT(url, serverItem);
-            case "DELETE":
-                return returnStatement = DELETE(url, serverItem);
-            case "GET":
-                return returnStatement = GET("http://10.0.3.2:8080/api/todos");
-
-
-            default:
-                //do Nothing
-        }
-
-        return returnStatement;
-    }
-
     public static String POST(String url, Item serverItem) {
         InputStream inputStream = null;
         String result = "";
@@ -259,6 +235,29 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
         }
 
         return result;
+    }
+
+    @Override
+    protected String doInBackground(String... params) {
+
+        //je nachdem welcher Identifier angegeben wird, wird ein anderer Http-Task ausgeführt
+
+        switch(identifier){
+            case "POST":
+                return returnStatement = POST(url, serverItem);
+            case "PUT":
+                return returnStatement = PUT(url, serverItem);
+            case "DELETE":
+                return returnStatement = DELETE(url, serverItem);
+            case "GET":
+                return returnStatement = GET("http://10.0.3.2:8080/api/todos");
+
+
+            default:
+                //do Nothing
+        }
+
+        return returnStatement;
     }
 
 

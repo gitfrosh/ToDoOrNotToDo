@@ -46,10 +46,6 @@ import java.util.GregorianCalendar;
 
 public class DetailviewActivity extends AppCompatActivity {
     public static final String LOGGER = "ULRIKE";
-    SqlHandler sqlHandler;
-    Cursor c1;
-    TextView tv;
-    Item listItem;
     public ArrayList<Item> list = new ArrayList<Item>();
     public Button btndelete;
     public Button btnedit;
@@ -57,6 +53,10 @@ public class DetailviewActivity extends AppCompatActivity {
     public Button btneditdescr;
     public Button btneditdate;
     public Button btnaddcontact;
+    SqlHandler sqlHandler;
+    Cursor c1;
+    TextView tv;
+    Item listItem;
     long j;
     Item serverItem;
 
@@ -216,6 +216,7 @@ public class DetailviewActivity extends AppCompatActivity {
 
             });
 
+            // man müsste hier noch die Kontakte implementieren..
             /*btnaddcontact = (Button) findViewById(R.id.btn_add_contact);
 
             btnaddcontact.setOnClickListener(new View.OnClickListener() {
@@ -359,7 +360,7 @@ public class DetailviewActivity extends AppCompatActivity {
 
     private void addContact() {
 
-        Intent selectContactOntent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+        //Intent selectContactOntent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
         //startActivityForResult(selectContactIntent, 1);
     }
 

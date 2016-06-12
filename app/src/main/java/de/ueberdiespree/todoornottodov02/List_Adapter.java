@@ -6,11 +6,6 @@ package de.ueberdiespree.todoornottodov02;
 /**
  * Created by Ulrike on 11.09.2015.
  */
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-
 
 import android.content.Context;
 import android.graphics.Color;
@@ -20,6 +15,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class List_Adapter extends BaseAdapter {
     public static final String LOGGER = "ULRIKE";
@@ -60,7 +59,7 @@ public class List_Adapter extends BaseAdapter {
 
     public void sortDataDone()
     {
-        //Collections.sort(list, Collections.reverseOrder(new Comp()));
+        // nicht implementiert
     }
 
 
@@ -123,26 +122,13 @@ public class List_Adapter extends BaseAdapter {
 
         //Convert to Date
         Date formattedNowDate = new Date(now);
-
-
-        Date formattedItemDate = null;
-        formattedItemDate = new Date(listItem.getExpiry());
+        Date formattedItemDate = new Date(listItem.getExpiry());
 
 
         //Vergleiche Daten und färbe Zeile rot, wenn Itemdatum vor heutigem Datum liegt
         if (formattedItemDate.before(formattedNowDate)){
             convertView.setBackgroundColor(Color.rgb(255, 204, 204));
-        } else {
-            //Log.d(LOGGER, "after");
-
         }
-        //ENDE check Datum - überfällig?------------------------------------------------------------
-
-        //Nun wird sortiert: Die Erledigten stehen immer oben.-------------------------------------
-        //AHHHHHHHHH NOOOOOOOOOOOO .. dadurch werden nicht mehr die richtigen Item beim Bearbeiten/
-        //Löschen ausgewählt
-        //sortDataDone();
-
         return convertView;
     }
 

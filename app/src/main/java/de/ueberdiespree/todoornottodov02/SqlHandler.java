@@ -14,7 +14,6 @@ public class SqlHandler {
 
     public static final String DATABASE_NAME = "MY_DATABASE";
     public static final int DATABASE_VERSION = 1;
-    Context context;
     SQLiteDatabase sqlDatabase;
     SqlDbHelper dbHelper;
 

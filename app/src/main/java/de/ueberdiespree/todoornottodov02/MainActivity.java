@@ -12,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,7 +21,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
-import android.app.DatePickerDialog;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -33,7 +31,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String LOGGER = "ULRIKE";
     public SqlHandler sqlHandler;
     public ListView lvCustomList;
-    public Button btnsubmit;
     public ArrayList<Item> list = new ArrayList<Item>();
     public ArrayList<String> items_id = new ArrayList<String>();
     public ArrayList<String> array_server_ids = new ArrayList<String>();
@@ -54,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
     public Item listItem;
     public Item serverItem;
     public String add_name_str, add_descr_str, add_done_str, add_fav_str;
-    Cursor c1;
-    int rowPosition;
-    private Menu optionsMenu;
+    public Cursor c1;
+    public int rowPosition;
+    public Menu optionsMenu;
 
 
     @Override
@@ -116,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         list.clear();
 
         //Der Array, in dem sich nur die Item-IDs befinden, wird geleert, um ihn jedes Mal, wenn
-        //gelöscht/editiert wird, neu aufzubauen
+        //refresht/gelöscht/editiert wird, neu aufzubauen
         items_id.clear();
 
         //erst mal alle Items aus SQLite lesen und in Array schreiben...
@@ -126,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
             if (c1.moveToFirst()) {
                 do {
                     int newId = c1.getInt(0);
-                    //Log.d(LOGGER, "newID " + newId);
+
                     listItem = new Item(c1.getInt(c1
                             .getColumnIndex("todo_id")),c1.getString(c1
                             .getColumnIndex("todo_name")), c1.getString(c1
@@ -135,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                             .getColumnIndex("todo_done")), Long.parseLong(c1.getString(c1
                             .getColumnIndex("todo_date"))));
 
-                    //füge Item zum Array hinzu
+                    //füge Item zum Array hinzufoo
                     list.add(listItem);
 
                     //füge ItemIDs zum extra angelegten Array hinzu
@@ -210,7 +206,6 @@ public class MainActivity extends AppCompatActivity {
 
                 if (!checkArrayServer(array_server_ids, inta))  {
 
-
                     String delQuery = "DELETE FROM TO_DOS WHERE todo_id='" + inta + "' ";
                     sqlHandler.executeQuery(delQuery);
 
@@ -218,14 +213,10 @@ public class MainActivity extends AppCompatActivity {
                             "mit Query:= " + delQuery);
 
                     //wenn Server leer ist, übertrage alle Item aus SQLite zum Server
+                    //nicht umgesetzt
                 } //else if (array_server_ids.isEmpty())  {
 
-                //Log.d(LOGGER, "alle Item zum Server!");
 
-                //String query = "INSERT INTO TO_DOS(todo_id, todo_name,todo_fav,todo_done,todo_date,todo_descr) values ('"
-                //        + jObj.getInt("id") + "','" + jObj.getString("name") + "','" + jObj.getString("favourite") + "','" + jObj.getString("done") + "','" + jObj.getLong("expiry") + "','" + add_descr_str + "')";
-                //sqlHandler.executeQuery(query);
-                //Log.d(LOGGER, "Query= " + query);
             }
 
         } catch (JSONException e) {
@@ -241,17 +232,11 @@ public class MainActivity extends AppCompatActivity {
         listAdapter = new List_Adapter(
                 MainActivity.this, list);
 
-        //unsortierter Adapter
+        //unsortierter Adapter // sortiert leider nicht implementiert
         lvCustomList.setAdapter(listAdapter);
         Log.d(LOGGER, "Erstelle Adapter...");
 
-        //sortierter Adapter
-        //lvCustomList.setAdapter(listAdapter.sortData());
-
-
         registerForContextMenu(lvCustomList);
-        //Log.d(LOGGER, "items_id " + items_id);
-
 
         lvCustomList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -293,7 +278,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        final long id = info.id;
+        //final long id = info.id;
         rowPosition = info.position; //gleicher Effekt wie ID:
 
         switch (item.getItemId()) {
@@ -314,7 +299,6 @@ public class MainActivity extends AppCompatActivity {
                 deleteItem.deleteItemFromSQLite(tempId);
 
 
-//          then you probably want it off the corresponding collection too
                 items_id.remove(rowPosition);
 
 

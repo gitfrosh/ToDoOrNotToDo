@@ -8,8 +8,8 @@ import android.util.Log;
  */
 public class SQLiteCRUD {
 
-    public SqlHandler sqlHandler;
     private static final String LOGGER = "ULRIKE";
+    public SqlHandler sqlHandler;
     String query;
 
     public SQLiteCRUD(SqlHandler sqlHandler, String query) {
